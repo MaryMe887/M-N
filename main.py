@@ -46,11 +46,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_PAGEUP:
                 spn /= 1.5
                 print(spn)
                 load_map()
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_PAGEDOWN:
                 spn *= 1.5
                 load_map()
 

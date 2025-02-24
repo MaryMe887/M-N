@@ -8,13 +8,17 @@ api_key = 'f3a0fe3a-b07e-4840-a1da-06f18b2ddf13'
 min_spn, max_spn = 0.0005, 50
 cord_x, cord_y = input('Введите нужные координаты (две переменные через пробел): ').split()
 spn = float(input('Введите масштаб (одна десятичная дробь): '))
+min_lat, max_lat = -85.0, 85.0
+min_lon, max_lon = -180.0, 180.0
 
 
 def load_map():
     """Готовим запрос"""
-    global spn
+    global spn, cord_y, cord_x
     spn = max(min_spn, min(max_spn, spn))
-    print(f"Текущий масштаб: {spn}")
+    cord_x = max(min_lon, min(max_lon, float(cord_x)))
+    cord_y = max(min_lat, min(max_lat, float(cord_y)))
+    print(f"Координаты: {cord_x}, {cord_y} | Масштаб: {spn}")
 
     params = {
         'll': f'{cord_x},{cord_y}',
@@ -48,10 +52,21 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_PAGEUP:
                 spn /= 1.5
-                print(spn)
                 load_map()
             elif event.key == pygame.K_PAGEDOWN:
                 spn *= 1.5
+                load_map()
+            elif event.key == pygame.K_UP:
+                cord_y = min(max_lat, float(cord_y) + spn)
+                load_map()
+            elif event.key == pygame.K_DOWN:
+                cord_y = max(min_lat, float(cord_y) - spn)
+                load_map()
+            elif event.key == pygame.K_LEFT:
+                cord_x = max(min_lon, float(cord_x) - spn)
+                load_map()
+            elif event.key == pygame.K_RIGHT:
+                cord_x = min(max_lon, float(cord_x) + spn)
                 load_map()
 
 pygame.quit()

@@ -14,7 +14,7 @@ spn = input('Введите маштаб (одна десятичная дроб
 paramas = {
     'll': ','.join([cord_x, cord_y]),
     'spn': ','.join([spn, spn]),
-    'api_key': api_key
+    'apikey': api_key
 }
 response = requests.get(server_address, params=paramas)
 
